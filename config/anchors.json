@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "layout": {"name": "default_line", "unit": "px"},
+  "objects": [
+    {
+      "id": "SRC_01",
+      "type": "Source",
+      "position": {"x": 80, "y": 120},
+      "anchors": {
+        "entrance": {"x": 60, "y": 120},
+        "exit": {"x": 120, "y": 120},
+        "center": {"x": 80, "y": 120},
+        "label": {"x": 80, "y": 95}
+      }
+    },
+    {
+      "id": "CONV_01",
+      "type": "Conveyor",
+      "position": {"x": 250, "y": 120},
+      "anchors": {
+        "entrance": {"x": 150, "y": 120},
+        "exit": {"x": 350, "y": 120},
+        "center": {"x": 250, "y": 120}
+      }
+    },
+    {
+      "id": "BUF_01",
+      "type": "Buffer",
+      "position": {"x": 430, "y": 120},
+      "anchors": {
+        "entrance": {"x": 390, "y": 120},
+        "exit": {"x": 470, "y": 120},
+        "worker_pickup": {"x": 430, "y": 155},
+        "queue_position": {"x": 430, "y": 170},
+        "center": {"x": 430, "y": 120}
+      }
+    },
+    {
+      "id": "STORE_01",
+      "type": "Store",
+      "position": {"x": 620, "y": 120},
+      "anchors": {
+        "entrance": {"x": 580, "y": 120},
+        "exit": {"x": 660, "y": 120},
+        "worker_dropoff": {"x": 620, "y": 155},
+        "center": {"x": 620, "y": 120}
+      }
+    },
+    {
+      "id": "DRAIN_01",
+      "type": "Drain",
+      "position": {"x": 800, "y": 120},
+      "anchors": {
+        "entrance": {"x": 760, "y": 120},
+        "exit": {"x": 840, "y": 120},
+        "center": {"x": 800, "y": 120}
+      }
+    },
+    {
+      "id": "WORKER_PLACE_01",
+      "type": "WorkerPlace",
+      "position": {"x": 520, "y": 220},
+      "anchors": {
+        "waiting_position": {"x": 520, "y": 220},
+        "center": {"x": 520, "y": 220}
+      }
+    }
+  ],
+  "connections": [
+    {"from": "SRC_01", "to": "CONV_01", "mode": "flow"},
+    {"from": "CONV_01", "to": "BUF_01", "mode": "flow"},
+    {"from": "BUF_01", "to": "STORE_01", "mode": "worker_transport"},
+    {"from": "STORE_01", "to": "DRAIN_01", "mode": "method_dispatch", "interval": 10}
+  ],
+  "worker_bindings": [
+    {
+      "worker_id": "WORKER_01",
+      "worker_place_id": "WORKER_PLACE_01",
+      "pickup_object_id": "BUF_01",
+      "dropoff_object_id": "STORE_01"
+    }
+  ]
+}
