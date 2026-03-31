@@ -1,9 +1,10 @@
 import sys
 from pathlib import Path
 
-# Allow both execution modes:
-# 1) python -m app.main
-# 2) python app/main.py
+# Conflict-resolution note:
+# Support both execution styles used by reviewers/CI.
+# - python -m app.main (package mode)
+# - python app/main.py (script mode)
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -13,9 +14,9 @@ from app.gui.main_window import MainWindow
 
 def main() -> int:
     app = QApplication(sys.argv)
-    w = MainWindow()
-    w.resize(1500, 900)
-    w.show()
+    window = MainWindow()
+    window.resize(1500, 900)
+    window.show()
     return app.exec()
 
 
