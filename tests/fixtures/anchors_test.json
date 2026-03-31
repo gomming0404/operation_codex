@@ -1,0 +1,19 @@
+{
+  "objects": [
+    {"id": "SRC_01", "type": "Source", "position": {"x": 0, "y": 0}, "anchors": {"exit": {"x": 1, "y": 0}, "entrance": {"x": -1, "y": 0}}},
+    {"id": "CONV_01", "type": "Conveyor", "position": {"x": 5, "y": 0}, "anchors": {"entrance": {"x": 2, "y": 0}, "exit": {"x": 8, "y": 0}}},
+    {"id": "BUF_01", "type": "Buffer", "position": {"x": 10, "y": 0}, "anchors": {"entrance": {"x": 9, "y": 0}, "exit": {"x": 11, "y": 0}, "worker_pickup": {"x": 10, "y": 1}}},
+    {"id": "STORE_01", "type": "Store", "position": {"x": 20, "y": 0}, "anchors": {"entrance": {"x": 19, "y": 0}, "exit": {"x": 21, "y": 0}, "worker_dropoff": {"x": 20, "y": 1}}},
+    {"id": "DRAIN_01", "type": "Drain", "position": {"x": 30, "y": 0}, "anchors": {"entrance": {"x": 29, "y": 0}, "exit": {"x": 31, "y": 0}}},
+    {"id": "WORKER_PLACE_01", "type": "WorkerPlace", "position": {"x": 15, "y": 5}, "anchors": {"waiting_position": {"x": 15, "y": 5}}}
+  ],
+  "connections": [
+    {"from": "SRC_01", "to": "CONV_01", "mode": "flow"},
+    {"from": "CONV_01", "to": "BUF_01", "mode": "flow"},
+    {"from": "BUF_01", "to": "STORE_01", "mode": "worker_transport"},
+    {"from": "STORE_01", "to": "DRAIN_01", "mode": "method_dispatch", "interval": 10}
+  ],
+  "worker_bindings": [
+    {"worker_id": "WORKER_01", "worker_place_id": "WORKER_PLACE_01", "pickup_object_id": "BUF_01", "dropoff_object_id": "STORE_01"}
+  ]
+}
